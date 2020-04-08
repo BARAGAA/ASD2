@@ -23,7 +23,7 @@ class Consigne{
          **/ 
             ~Consigne();
         /**
-     * @ole : Verification if the Consigne is full
+     * @Role : Verification if the Consigne is full
      * @return : true or false ;
      **/ 
         bool isFull()const;
@@ -44,10 +44,10 @@ class Consigne{
         /**
          * @struct a structute needed for the location of a bagage in some a place in the consigne and created in the process if deposing and retreiving the bagage.
          * */
-        typedef struct  {
+        typedef struct c {
             
-            int _place;
-            Bagage _package;
+            size_t place;
+            Bagage package;
             
         } Case;
 
