@@ -1,4 +1,8 @@
-#ifndef DEF_TICKET
+/**
+ * @author BA RAGAA Mohammed
+ * @date 08/04/2020
+ * */
+ #ifndef DEF_TICKET
 #define DEF_TICKET
 
 #include <iostream>
@@ -40,13 +44,13 @@ class Ticket
      * @Role :Access the ID of the instance of the class Ticket
      * @return : string
      * **/
-    std::string getID()const;
+    std::string getCode()const;
     /**
      * @Role : Returns the hashcode of the ticket code and used for the creation of the hashmap in Consigne
      * @param  Ticket
      * @return size_t
      * */
-    size_t operator()(const Ticket& t) const;
+    size_t operator()(const Ticket& t) ;
     struct getHashCode{
         size_t operator()(const Ticket & t) const{
             return t.hash_code(); 

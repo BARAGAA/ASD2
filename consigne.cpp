@@ -69,8 +69,8 @@ Ticket Consigne::deposit(Bagage package){
     _map.insert(make_pair(T,target)); //The insertion
      
     
-    auto it = _cases.begin() + reservedPlace; //The iterator
-
+    auto it = _cases.begin(); //The iterator
+    std::advance(it,reservedPlace);
     _cases.insert(it,T); //Insertion of the ticket in the vector
 
     _nextCase++; //adding the case to the counter 
@@ -87,10 +87,11 @@ Ticket Consigne::deposit(Bagage package){
 Bagage Consigne::collect(Ticket t){
     assert(_usedCases >0); // has to have at least one element
     auto it1 = _map.find(t);
-    Case caseForTicket=it1->second; //getting the case by the ticket.
+    Case caseForTicket= it1->second; //getting the case by the ticket.
     //(if the key exists) here we should first  check if the key exists in the map. 
         size_t location = caseForTicket.place; //getting the location of the case
-        auto it2 = _cases.begin() + location ;  //using an iterator to reset the case in the vector and the queue.
+        auto it2 = _cases.begin();
+        std::advance(it2,location) ;  //using an iterator to reset the case in the vector and the queue.
         _cases.erase(it2); //delete the used ticket as it's perpose has ended.
         _emptyCases.push(location); //add the case in the end of the queue.
         _map.erase(t); //delete the pair <Ticket,Case> from the map.

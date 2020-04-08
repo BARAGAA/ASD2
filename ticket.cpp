@@ -1,3 +1,8 @@
+/**
+ * @author BA RAGAA Mohammed
+ * @date 08/04/2020
+ * */
+ 
 #include "ticket.hpp"
 #include <bits/stdc++.h>
 
@@ -26,7 +31,7 @@
     bool Ticket::operator!=(Ticket const& t)const{
         return  t._code != _code;
     }
-    std::string Ticket::getID()const{
+    std::string Ticket::getCode()const{
     return _code;
     }
 

@@ -1,3 +1,8 @@
+/**
+ * @author BA RAGAA Mohammed
+ * @date 08/04/2020
+**/
+
 #ifndef DEF_CONSIGNE
 #define DEF_CONSIGNE
 
@@ -50,13 +55,12 @@ class Consigne{
             Bagage package;
             
         } Case;
-
+        std::unordered_map<Ticket,Case,Ticket::getHashCode> _map; //Unordered map that is used to link tickets with bagage for the current Bagage in the consigne.
+        std::vector<Ticket> _cases; // a vector of objects of the type Ticket that is used to store tickets and represents all the cases.
+        std::queue<size_t> _emptyCases; // a queue for the empty cases that was essentialy created to guarentee the balanced usage for the cases in the Consigne
         size_t _capacity; // the maximum number of Bagage that can be at once in the Consigne
         size_t _usedCases; // the current used cases that have Bagage in the instance of time.
-        std::vector<Ticket> _cases; // a vector of objects of the type Ticket that is used to store tickets and represents all the cases.
         size_t _nextCase; // the index of the next case where the bagage will be put if the queue below didn't get used entierly yet ,also represents the the total number of deposits so far
-        std::queue<size_t> _emptyCases; // a queue for the empty cases that was essentialy created to guarentee the balanced usage for the cases in the Consigne
-        std::unordered_map<Ticket,Case,Ticket::getHashCode> _map; //Unordered map that is used to link tickets with bagage for the current Bagage in the consigne.
 
 };
 
