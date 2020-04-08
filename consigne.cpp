@@ -1,8 +1,8 @@
-#include "Ticket.hpp"
+#include "ticket.hpp"
 #include "consigne.hpp"
 #include <assert.h>
 #include <unordered_map>
-#include<iostream>
+#include <iostream>
 
 using namespace std;
 
@@ -21,7 +21,9 @@ Consigne::Consigne(size_t n){
     _usedCases = 0;
     _nextCase = 0;
 }
-
+Consigne::~Consigne(){
+    
+}
 bool Consigne::isFull() const{
     return _usedCases  == _capacity;
 }

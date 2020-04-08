@@ -1,7 +1,7 @@
 #ifndef DEF_CONSIGNE
 #define DEF_CONSIGNE
 
-#include "Ticket.hpp"
+#include "ticket.hpp"
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -21,7 +21,7 @@ class Consigne{
         /**
          * @Role : a destructor for the objetc of the type Ticket
          **/ 
-        ~Consigne();
+            ~Consigne();
         /**
      * @ole : Verification if the Consigne is full
      * @return : true or false ;

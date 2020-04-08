@@ -35,7 +35,7 @@ public:
 
 private:
 
-  vector<int> v;
+  std::vector<int> v;
 
 };
 

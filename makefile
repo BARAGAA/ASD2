@@ -5,7 +5,7 @@ LIBS = -lm	-lstdc++
 LIBSDIR = 
 
 # fichiers du projet
-SRC = main.cpp Ticket.cpp Consigne.cpp
+SRC = main.cpp ticket.cpp consigne.cpp
 OBJ = $(SRC:.c=.o)
 EXEC = run.out
 
@@ -15,8 +15,8 @@ all: $(EXEC)
 
 # dépendance des .h
 ticket.o: ticket.hpp
-storage.o: Consigne.hpp
-storage.o: ticket.hpp
+consigne.o: consigne.hpp
+consigne.o: ticket.hpp
 main.o: ticket.hpp 
 main.o: consigne.hpp
 # règles de compilation
