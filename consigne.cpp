@@ -6,19 +6,11 @@
 #include "consigne.hpp"
 #include <assert.h>
 #include <unordered_map>
-
+#include "case.hpp"
 using namespace std;
 
 
-/**
- * @Role: the alias type of the Bagage which is basically a string
- * */
-typedef struct{
-        
-        size_t place;
-        Bagage package;
-        
-    } Case;
+
 
     typedef std::pair<Ticket,Case> Entree;
 
@@ -55,8 +47,8 @@ Ticket Consigne::deposit(Bagage package){
         reservedPlace = _nextCase;
     }
     else{ //not the first usage , the case queue is used to stock the package
-         reservedPlace = _emptyCases.front();
-        _emptyCases.pop();
+         reservedPlace = _emptyCases.front();//access to first case of a queue which is constant time
+        _emptyCases.pop(); //returns the top element in the queue with  a cost of O(n) in worst case with amortized O(1) in general
 
     }
     //case to insert to the map
@@ -67,11 +59,7 @@ Ticket Consigne::deposit(Bagage package){
     Ticket T;    //The associated ticket
 
     _map.insert(make_pair(T,target)); //The insertion
-     
     
-    auto it = _cases.begin(); //The iterator
-    std::advance(it,reservedPlace);
-    _cases.insert(it,T); //Insertion of the ticket in the vector
 
     _nextCase++; //adding the case to the counter 
     _usedCases++;//adding the case to the counter
@@ -83,16 +71,15 @@ Ticket Consigne::deposit(Bagage package){
  * @param Ticket
 * @Role : given a ticket , the function returns the associated Bagage in the Consigne (the Hash map)
 * @return :Bagage
+* @complexity 
 **/
 Bagage Consigne::collect(Ticket t){
-    assert(_usedCases >0); // has to have at least one element
-    auto it1 = _map.find(t);
+    assert(_usedCases >0);// has to have at least one element
+    auto it1 = _map.find(t); //costs a constant time O(1) in most(if not all ) cases as a worst case complexity
+    assert(it1 != _map.end()); // checking the existence of the pair in the map
     Case caseForTicket= it1->second; //getting the case by the ticket.
     //(if the key exists) here we should first  check if the key exists in the map. 
         size_t location = caseForTicket.place; //getting the location of the case
-        auto it2 = _cases.begin();
-        std::advance(it2,location) ;  //using an iterator to reset the case in the vector and the queue.
-        _cases.erase(it2); //delete the used ticket as it's perpose has ended.
         _emptyCases.push(location); //add the case in the end of the queue.
         _map.erase(t); //delete the pair <Ticket,Case> from the map.
         _usedCases--; //the used cases are decreased by one .
