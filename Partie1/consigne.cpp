@@ -31,6 +31,7 @@ Consigne::~Consigne(){
 /**
  * @Role : Verification if the Consigne is full
  * @return : true or false ;
+ * @Complixety O(1)
  **/ 
 bool Consigne::isFull() const{
     return _usedCases  == _capacity;
@@ -39,16 +40,19 @@ bool Consigne::isFull() const{
  *@param Bagage
 * @Role : given a bagage , the function inserts the bagage in the Consigne and returns a ticket that is used for its retreival.
 * @return : Ticket
+* @Complexity O(1) amortie
 **/ 
 Ticket Consigne::deposit(Bagage package){
-    assert(!isFull()); //      _usedCases  != _capacity
+    assert(!isFull()); //  precondition :    _usedCases  != _capacity
+    
+    
     size_t reservedPlace;
     if (_nextCase <= _capacity){ //first usage for the case the nextCase variable is used.
         reservedPlace = _nextCase;
     }
     else{ //not the first usage , the case queue is used to stock the package
          reservedPlace = _emptyCases.front();//access to first case of a queue which is constant time
-        _emptyCases.pop(); //returns the top element in the queue with  a cost of O(n) in worst case with amortized O(1) in general
+        _emptyCases.pop(); //returns the top element in the queue with  a cost of O(n) in worst case with amortized O(1) in general because it pops the front
 
     }
     //case to insert to the map
@@ -60,7 +64,7 @@ Ticket Consigne::deposit(Bagage package){
 
     _map.insert(make_pair(T,target)); //The insertion
     
-
+    //counter modification
     _nextCase++; //adding the case to the counter 
     _usedCases++;//adding the case to the counter
 
@@ -71,20 +75,24 @@ Ticket Consigne::deposit(Bagage package){
  * @param Ticket
 * @Role : given a ticket , the function returns the associated Bagage in the Consigne (the Hash map)
 * @return :Bagage
-* @complexity 
+* @complexity Theta(1) amortis with O(n) for worst case
 **/
 Bagage Consigne::collect(Ticket t){
-    assert(_usedCases >0);// has to have at least one element
+    assert(_usedCases > 0);// has to have at least one element
+    assert(_map.find(t) != _map.end());// checking the existence of the pair in the map
+
     auto it1 = _map.find(t); //costs a constant time O(1) in most(if not all ) cases as a worst case complexity
-    assert(it1 != _map.end()); // checking the existence of the pair in the map
     Case caseForTicket= it1->second; //getting the case by the ticket.
-    //(if the key exists) here we should first  check if the key exists in the map. 
-        size_t location = caseForTicket.place; //getting the location of the case
-        _emptyCases.push(location); //add the case in the end of the queue.
-        _map.erase(t); //delete the pair <Ticket,Case> from the map.
-        _usedCases--; //the used cases are decreased by one .
+
+
+    size_t location = caseForTicket.place; //getting the location of the case
+    _emptyCases.push(location); //add the case in the end of the queue.
+
+
+    _map.erase(t); //delete the pair <Ticket,Case> from the map.
+
+
+    _usedCases--; //the used cases are decreased by one .
     
     return caseForTicket.package; //the package is returned from the function
-
-
 }

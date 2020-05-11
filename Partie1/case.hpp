@@ -15,10 +15,10 @@ typedef std::string Bagage;
 /**
  * @Role: the alias type of the Bagage which is basically a string
  * */
-typedef struct{
+typedef struct case{
         
-        std::size_t place;
-        Bagage package;
+        int place;
+        Bagage &package;
         
     } Case;
 #endif

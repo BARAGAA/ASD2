@@ -38,6 +38,10 @@ main(){
     std::cout<< C.isFull()<<" value of fullness"<< endl;
     t3 = C.deposit(b3);
     std::cout<< C.isFull()<<" value of fullness"<< endl;
+    cout << "test of existance of ticket" << endl;
+    std::cout <<C.collect(t2)<<endl;
+    //expect error if the next line is decommented
+    //std::cout <<C.collect(t2)<<endl;
 
 
 
